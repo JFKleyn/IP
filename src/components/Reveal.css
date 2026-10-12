@@ -1,0 +1,18 @@
+/* The wrapper uses display:contents, preserving the original layout and grid. */
+.ip-home .ip-reveal > * {
+  opacity: 0;
+  translate: 0 var(--ip-reveal-distance, 54px);
+  transition: opacity 850ms cubic-bezier(.18,.8,.2,1),
+              translate 950ms cubic-bezier(.16,1,.25,1);
+  transition-delay: var(--ip-reveal-delay, 0ms);
+  will-change: opacity, translate;
+}
+.ip-home .ip-reveal[data-reveal-direction="left"] > * { translate: calc(-1 * var(--ip-reveal-distance, 54px)) 0; }
+.ip-home .ip-reveal[data-reveal-direction="right"] > * { translate: var(--ip-reveal-distance, 54px) 0; }
+.ip-home .ip-reveal[data-reveal-direction="down"] > * { translate: 0 calc(-1 * var(--ip-reveal-distance, 54px)); }
+.ip-home .ip-reveal[data-reveal-direction="pop"] > * {
+  scale: .88;
+  transition-property: opacity, translate, scale;
+  transition-duration: 750ms, 900ms, 950ms;
+}
+.ip-home .ip-reveal.ip-reveal--visible > * { opacity: 1; translate: 0 0; scale: 1; }
