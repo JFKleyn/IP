@@ -157,19 +157,19 @@ export function HomePage() {
           <div className="ip-memory-board" aria-label="A collection of Insta Party celebrations">
             <Reveal direction="pop" delay={120} distance={95}><figure className="ip-memory-print ip-memory-print--one">
               <img src={event2} alt="Colourful birthday balloons and party decorations" loading="lazy" />
-              <figcaption>the big birthdays</figcaption>
+              <figcaption>The Big Birthdays</figcaption>
             </figure></Reveal>
             <Reveal direction="pop" delay={280} distance={95}><figure className="ip-memory-print ip-memory-print--two">
               <img src={event1} alt="Bright children's soft play setup" loading="lazy" />
-              <figcaption>little adventures</figcaption>
+              <figcaption>Little Adventures</figcaption>
             </figure></Reveal>
             <Reveal direction="pop" delay={440} distance={95}><figure className="ip-memory-print ip-memory-print--three">
               <img src={event6} alt="Celebration with balloons and special details" loading="lazy" />
-              <figcaption>all the details</figcaption>
+              <figcaption>All the Details</figcaption>
             </figure></Reveal>
             <Reveal direction="pop" delay={600} distance={95}><figure className="ip-memory-print ip-memory-print--four">
               <img src={event3} alt="Elegant event drinks station" loading="lazy" />
-              <figcaption>cheers to that!</figcaption>
+              <figcaption>Cheers to That!</figcaption>
             </figure></Reveal>
             <Reveal delay={550} direction="left"><span className="ip-memory-note" aria-hidden="true">the best days<br />are worth keeping.</span></Reveal>
           </div>
