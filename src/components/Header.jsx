@@ -43,9 +43,9 @@ export function Header() {
               {label}
             </a>
           ))}
-          <a className="ip2-mobile-cta" href="#contact" onClick={() => select("#contact")}>LET'S CELEBRATE ↗</a>
+          <a className="ip2-mobile-cta" href="#contact" onClick={() => select("#contact")}>LET'S CELEBRATE <svg aria-hidden="true" focusable="false" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", flexShrink: 0 }}><path d="M5 19 19 5M7 5h12v12" /></svg></a>
         </nav>
-        <a className="ip2-cta" href="#contact" onClick={() => select("#contact")}>LET'S CELEBRATE <span aria-hidden="true">↗</span></a>
+        <a className="ip2-cta" href="#contact" onClick={() => select("#contact")}>LET'S CELEBRATE <span aria-hidden="true"><svg aria-hidden="true" focusable="false" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", flexShrink: 0 }}><path d="M5 19 19 5M7 5h12v12" /></svg></span></a>
         <button className={open ? "ip2-menu is-open" : "ip2-menu"} type="button"
           aria-label={open ? "Close menu" : "Open menu"} aria-controls="ip2-navigation"
           aria-expanded={open} onClick={() => setOpen(value => !value)}>

@@ -41,13 +41,13 @@ export function Footer() {
           <div className="ip-footer-celebrate">
             <span>GOT SOMETHING TO CELEBRATE?</span>
             <p>LET'S MAKE<br /><em>IT HAPPEN.</em></p>
-            <a href="#contact" className="ip-footer-cta">LET'S CHAT <span aria-hidden="true">↗</span></a>
+            <a href="#contact" className="ip-footer-cta">LET'S CHAT <span aria-hidden="true"><svg aria-hidden="true" focusable="false" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", flexShrink: 0 }}><path d="M5 19 19 5M7 5h12v12" /></svg></span></a>
           </div>
         </div>
 
         <div className="ip-footer-bottom">
           <span>© {new Date().getFullYear()} Insta Party. All rights reserved.</span>
-          <a href="https://venturetechnologies.co" target="_blank" rel="noopener noreferrer">Website by <strong>Venture</strong> <span aria-hidden="true">↗</span></a>
+          <a href="https://venturetechnologies.co" target="_blank" rel="noopener noreferrer">Website by <strong>Venture</strong> <span aria-hidden="true"><svg aria-hidden="true" focusable="false" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", flexShrink: 0 }}><path d="M5 19 19 5M7 5h12v12" /></svg></span></a>
         </div>
       </div>
     </footer>

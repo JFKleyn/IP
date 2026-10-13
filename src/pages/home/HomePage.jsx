@@ -81,7 +81,7 @@ export function HomePage() {
             <Reveal delay={380}><p className="ip-intro">The little details. The big reactions. The moments everyone remembers. We make celebrating feel effortless and a whole lot more fun.</p></Reveal>
             <Reveal delay={530}><div className="ip-actions">
               <a className="ip-primary" href="#contact" onMouseEnter={celebrate} onFocus={celebrate} onTouchStart={celebrate}>
-                LET'S PLAN A PARTY <span aria-hidden="true">↗</span>
+                LET'S PLAN A PARTY <span aria-hidden="true"><svg aria-hidden="true" focusable="false" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", flexShrink: 0 }}><path d="M5 19 19 5M7 5h12v12" /></svg></span>
                 <span className={confetti ? "ip-confetti is-bursting" : "ip-confetti"} aria-hidden="true">
                   {Array.from({ length: 14 }, (_, index) => <i key={index} style={{ "--piece": index }} />)}
                 </span>
@@ -173,7 +173,7 @@ export function HomePage() {
             </figure></Reveal>
             <Reveal delay={550} direction="left"><span className="ip-memory-note" aria-hidden="true">the best days<br />are worth keeping.</span></Reveal>
           </div>
-          <Reveal delay={160}><a className="ip-memory-link" href="#contact">LET'S MAKE SOME MEMORIES <span aria-hidden="true">↗</span></a></Reveal>
+          <Reveal delay={160}><a className="ip-memory-link" href="#contact">LET'S MAKE SOME MEMORIES <span aria-hidden="true"><svg aria-hidden="true" focusable="false" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", flexShrink: 0 }}><path d="M5 19 19 5M7 5h12v12" /></svg></span></a></Reveal>
         </div>
       </section>
       <section className="ip-promise" aria-labelledby="ip-promise-title">
@@ -184,7 +184,7 @@ export function HomePage() {
           </div></Reveal>
           <Reveal direction="right" distance={85} delay={180}><div className="ip-promise-copy">
             <p>We believe the best celebrations feel like you. From the first idea to the finishing touches, it's all about making the moment yours.</p>
-            <a href="#contact" className="ip-promise-link">LET'S MAKE IT HAPPEN <span aria-hidden="true">↗</span></a>
+            <a href="#contact" className="ip-promise-link">LET'S MAKE IT HAPPEN <span aria-hidden="true"><svg aria-hidden="true" focusable="false" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", flexShrink: 0 }}><path d="M5 19 19 5M7 5h12v12" /></svg></span></a>
           </div></Reveal>
         </div>
       </section>
@@ -231,7 +231,7 @@ export function HomePage() {
             <p>READY WHEN YOU ARE.</p>
             <strong>LET'S MAKE<br />SOME MAGIC.</strong>
             <span>Have a celebration in mind? Tell us what you're dreaming up, and let's make it happen.</span>
-            <a href="/contact-us" className="ip-final-button">CONTACT US <span aria-hidden="true">↗</span></a>
+            <a href="/contact-us" className="ip-final-button">CONTACT US <span aria-hidden="true"><svg aria-hidden="true" focusable="false" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle", flexShrink: 0 }}><path d="M5 19 19 5M7 5h12v12" /></svg></span></a>
           </div></Reveal>
         </div>
       </section>
