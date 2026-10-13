@@ -1746,7 +1746,7 @@
   animation: none;
 }
 .ip-hero h1 em {
-  animation: ip-wiggle 2.9s ease-in-out infinite;
+  animation: ip-wiggle 2s ease-in-out infinite;
 }
 .ip-ribbon {
   animation: ip-ribbon-arrive 950ms 300ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
