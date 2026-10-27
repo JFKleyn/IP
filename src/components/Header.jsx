@@ -11,7 +11,7 @@ const links = [
   { label: "Insta Gallery", to: "/insta-gallery" },
   { label: "About Us", to: "/about-us" },
   { label: "Contact Us", to: "/contact-us" },
-  { label: "Terms & Conditions", to: "/terms-and-conditions" },
+  { label: "Terms & Conditions", to: "/terms" },
 ];
 
 export function Header() {
