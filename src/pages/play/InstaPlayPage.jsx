@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import "./InstaPlayPage.css";
 
 // Place these images in src/assets, using the filenames below.
@@ -63,26 +63,28 @@ export function InstaPlayPage() {
   const [setup, setSetup] = useState("outdoor");
   const pageRef = useRef(null);
 
-  useEffect(() => {
-    const page = pageRef.current;
-    if (!page) return;
-    const targets = page.querySelectorAll("[data-play-reveal]");
-    if (!("IntersectionObserver" in window)) return;
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
+  useLayoutEffect(() => {
+    const root = pageRef.current;
+    if (!root || !("IntersectionObserver" in window)) return;
+    const targets = [...root.querySelectorAll("[data-play-reveal]")];
+    root.classList.add("ip-play-animate");
+    let firstFrame, secondFrame;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add("is-visible");
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: "0px 0px -35px 0px" });
-
-    targets.forEach((target) => observer.observe(target));
-    page.classList.add("ip-play-animate");
+    }, { threshold: .12, rootMargin: "0px 0px -35px 0px" });
+    firstFrame = requestAnimationFrame(() => {
+      secondFrame = requestAnimationFrame(() => targets.forEach(target => observer.observe(target)));
+    });
     return () => {
+      cancelAnimationFrame(firstFrame);
+      cancelAnimationFrame(secondFrame);
       observer.disconnect();
-      page.classList.remove("ip-play-animate");
+      root.classList.remove("ip-play-animate");
     };
   }, []);
 

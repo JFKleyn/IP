@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './InstaHirePage.css';
 
@@ -45,21 +45,29 @@ export function InstaHirePage() {
     });
   }
 
-  useEffect(() => {
-    const page = document.querySelector('.ih-page');
-    const elements = page?.querySelectorAll('[data-ih-reveal]') || [];
-    if (!('IntersectionObserver' in window)) return;
-    page?.classList.add('ih-motion-ready');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
+  useLayoutEffect(() => {
+    const root = document.querySelector(".ih-page");
+    if (!root || !("IntersectionObserver" in window)) return;
+    const targets = [...root.querySelectorAll("[data-ih-reveal]")];
+    root.classList.add("ih-motion-ready");
+    let firstFrame, secondFrame;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('ih-is-visible');
+          entry.target.classList.add("ih-is-visible");
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -25px 0px' });
-    elements.forEach((element) => observer.observe(element));
-    return () => { observer.disconnect(); page?.classList.remove('ih-motion-ready'); };
+    }, { threshold: .12, rootMargin: "0px 0px -25px 0px" });
+    firstFrame = requestAnimationFrame(() => {
+      secondFrame = requestAnimationFrame(() => targets.forEach(target => observer.observe(target)));
+    });
+    return () => {
+      cancelAnimationFrame(firstFrame);
+      cancelAnimationFrame(secondFrame);
+      observer.disconnect();
+      root.classList.remove("ih-motion-ready");
+    };
   }, []);
 
   return (

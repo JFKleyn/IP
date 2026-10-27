@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./InstaDecorPage.css";
 
@@ -48,21 +48,29 @@ export function InstaDecorPage() {
   const [selectedImage, setSelectedImage] = useState(null);
   const pageRef = useRef(null);
 
-  useEffect(() => {
-    const elements = pageRef.current?.querySelectorAll(".ip-decor-reveal");
-    if (!elements?.length) return;
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
+  useLayoutEffect(() => {
+    const root = pageRef.current;
+    if (!root || !("IntersectionObserver" in window)) return;
+    const targets = [...root.querySelectorAll(".ip-decor-reveal")];
+    root.classList.add("ip-decor-animated");
+    let firstFrame, secondFrame;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add("is-visible");
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: "0px 0px -35px 0px" });
-
-    elements.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
+    }, { threshold: .12, rootMargin: "0px 0px -35px 0px" });
+    firstFrame = requestAnimationFrame(() => {
+      secondFrame = requestAnimationFrame(() => targets.forEach(target => observer.observe(target)));
+    });
+    return () => {
+      cancelAnimationFrame(firstFrame);
+      cancelAnimationFrame(secondFrame);
+      observer.disconnect();
+      root.classList.remove("ip-decor-animated");
+    };
   }, []);
   const closeButtonRef = useRef(null);
   const previousFocusRef = useRef(null);
@@ -95,7 +103,7 @@ export function InstaDecorPage() {
   }, [selectedImage === null]);
 
   return (
-    <main className="ip-decor ip-decor-animated" ref={pageRef}>
+    <main className="ip-decor" ref={pageRef}>
       <section className="ip-decor-hero" aria-labelledby="ip-decor-title">
         <div className="ip-decor-container ip-decor-hero-grid">
           <div className="ip-decor-hero-copy ip-decor-reveal ip-decor-reveal-left">

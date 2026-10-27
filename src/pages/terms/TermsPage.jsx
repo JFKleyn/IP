@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './TermsPage.css';
 
@@ -18,20 +18,29 @@ const cancellation = [
 export function TermsPage() {
   const rootRef = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = rootRef.current;
-    if (!root || !('IntersectionObserver' in window)) return;
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(({ isIntersecting, target }) => {
-        if (isIntersecting) {
-          target.classList.add('ip-terms-visible');
-          observer.unobserve(target);
+    if (!root || !("IntersectionObserver" in window)) return;
+    const targets = [...root.querySelectorAll("[data-terms-reveal]")];
+    root.classList.add("ip-terms-motion");
+    let firstFrame, secondFrame;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("ip-terms-visible");
+          observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px -35px 0px' });
-    root.classList.add('ip-terms-motion');
-    root.querySelectorAll('[data-terms-reveal]').forEach((el) => observer.observe(el));
-    return () => { observer.disconnect(); root.classList.remove('ip-terms-motion'); };
+    }, { threshold: .08, rootMargin: "0px 0px -35px 0px" });
+    firstFrame = requestAnimationFrame(() => {
+      secondFrame = requestAnimationFrame(() => targets.forEach(target => observer.observe(target)));
+    });
+    return () => {
+      cancelAnimationFrame(firstFrame);
+      cancelAnimationFrame(secondFrame);
+      observer.disconnect();
+      root.classList.remove("ip-terms-motion");
+    };
   }, []);
 
   return (

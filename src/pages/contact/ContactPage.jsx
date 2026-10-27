@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import './ContactPage.css';
 
 const INTERESTS = ['Decor', 'Softplay', 'Catering / Slushie Machine', 'Bounce Castle', 'Lollipop Water Slide'];
@@ -16,15 +16,29 @@ export function ContactPage() {
   const [sending, setSending] = useState(false);
   const rootRef = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = rootRef.current;
-    if (!root || !('IntersectionObserver' in window)) return;
-    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
-      if (entry.isIntersecting) { entry.target.classList.add('ip-contact-visible'); observer.unobserve(entry.target); }
-    }), { threshold: .08 });
-    root.classList.add('ip-contact-motion');
-    root.querySelectorAll('[data-contact-reveal]').forEach(el => observer.observe(el));
-    return () => observer.disconnect();
+    if (!root || !("IntersectionObserver" in window)) return;
+    const targets = [...root.querySelectorAll("[data-contact-reveal]")];
+    root.classList.add("ip-contact-motion");
+    let firstFrame, secondFrame;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("ip-contact-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .08, rootMargin: "0px 0px 0px 0px" });
+    firstFrame = requestAnimationFrame(() => {
+      secondFrame = requestAnimationFrame(() => targets.forEach(target => observer.observe(target)));
+    });
+    return () => {
+      cancelAnimationFrame(firstFrame);
+      cancelAnimationFrame(secondFrame);
+      observer.disconnect();
+      root.classList.remove("ip-contact-motion");
+    };
   }, []);
 
   const update = (name, value) => setForm(prev => ({ ...prev, [name]: value }));

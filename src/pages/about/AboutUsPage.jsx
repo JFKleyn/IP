@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './AboutUsPage.css';
 
@@ -23,17 +23,29 @@ function ArrowIcon() {
 
 export function AboutUsPage() {
   const rootRef = useRef(null);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = rootRef.current;
-    if (!root || !('IntersectionObserver' in window)) return;
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(({ isIntersecting, target }) => {
-        if (isIntersecting) { target.classList.add('ip-about-visible'); observer.unobserve(target); }
+    if (!root || !("IntersectionObserver" in window)) return;
+    const targets = [...root.querySelectorAll("[data-about-reveal]")];
+    root.classList.add("ip-about-motion");
+    let firstFrame, secondFrame;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("ip-about-visible");
+          observer.unobserve(entry.target);
+        }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -35px 0px' });
-    root.classList.add('ip-about-motion');
-    root.querySelectorAll('[data-about-reveal]').forEach(el => observer.observe(el));
-    return () => { observer.disconnect(); root.classList.remove('ip-about-motion'); };
+    }, { threshold: .1, rootMargin: "0px 0px -35px 0px" });
+    firstFrame = requestAnimationFrame(() => {
+      secondFrame = requestAnimationFrame(() => targets.forEach(target => observer.observe(target)));
+    });
+    return () => {
+      cancelAnimationFrame(firstFrame);
+      cancelAnimationFrame(secondFrame);
+      observer.disconnect();
+      root.classList.remove("ip-about-motion");
+    };
   }, []);
 
   return (
