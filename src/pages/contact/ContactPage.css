@@ -452,21 +452,38 @@
     padding: 65px 0 80px;
   }
 }
-/* iOS Safari: prevent native date/time controls from exceeding the form width. */
+
+/* iPhone Safari / Chrome: keep native date and time controls inside the form. */
+.ip-contact-layout,
+.ip-contact-form-wrap,
+.ip-contact-form,
+.ip-contact-two,
+.ip-contact-two > label {
+  min-width: 0;
+  max-width: 100%;
+}
+
 .ip-contact-two {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
-.ip-contact-two > label {
-  min-width: 0;
-}
+
 .ip-contact-form input[type="date"],
 .ip-contact-form input[type="time"] {
   display: block;
+  box-sizing: border-box;
   width: 100%;
   min-width: 0;
   max-width: 100%;
   -webkit-min-logical-width: 0;
 }
+
+/* iOS gives native date/time fields an intrinsic minimum width.
+   Constrain their containing label as well as the control. */
+.ip-contact-two > label {
+  width: 100%;
+  overflow: hidden;
+}
+
 @media (max-width: 600px) {
   .ip-contact-two {
     grid-template-columns: minmax(0, 1fr);
