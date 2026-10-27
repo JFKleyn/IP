@@ -2,28 +2,37 @@
 .ip-footer *{box-sizing:border-box}
 .ip-footer-inner{width:min(100% - 64px,1330px);margin:0 auto}
 .ip-footer-top{display:grid;grid-template-columns:1.65fr .8fr .85fr 1.35fr;gap:clamp(25px,3.6vw,64px);padding:80px 0 75px}
-.ip-footer-logo{display:inline-flex;align-items:center;gap:12px;color:#009eae;text-decoration:none;font-family:"Outfit",Arial,sans-serif;font-size:clamp(25px,2.5vw,34px);font-weight:900;letter-spacing:-.075em;line-height:1}
+.ip-footer-logo{display:inline-flex;align-items:center;gap:12px;color:#059cae;text-decoration:none;font-family:"Outfit",Arial,sans-serif;font-size:clamp(25px,2.5vw,34px);font-weight:900;letter-spacing:-.075em;line-height:1}
 .ip-footer-logo img{width:64px;height:64px;object-fit:contain}
-.ip-footer-logo strong{color:#ff6b66;font-weight:900}
+.ip-footer-logo strong{color:#e53945;font-weight:900}
 .ip-footer-brand>p{font-size:15px;line-height:1.75;color:#587079;margin:23px 0 22px}
 .ip-footer-tagline,.ip-footer-column h2,.ip-footer-celebrate>span{font-size:10px;font-weight:900;letter-spacing:.14em}
-.ip-footer-tagline{color:#009eae}
+.ip-footer-tagline{color:#059cae}
 .ip-footer-column{display:flex;flex-direction:column;align-items:flex-start;gap:15px}
-.ip-footer-column h2{margin:8px 0 12px;color:#009eae}
+.ip-footer-column h2{margin:8px 0 12px;color:#059cae}
 .ip-footer-column a{font-size:14px;color:#142f37;text-decoration:none;font-weight:650;transition:color .2s,transform .2s}
-.ip-footer-column a:hover{color:#ff6b66;transform:translateX(4px)}
-.ip-footer-celebrate{border-left:2px solid #ff6b66;padding-left:clamp(20px,3vw,45px)}
-.ip-footer-celebrate>span{color:#009eae}
+.ip-footer-column a:hover{color:#e53945;transform:translateX(4px)}
+.ip-footer-celebrate{border-left:2px solid #e53945;padding-left:clamp(20px,3vw,45px)}
+.ip-footer-celebrate>span{color:#059cae}
 .ip-footer-celebrate p{font-family:"Outfit",Arial,sans-serif;font-weight:900;font-size:clamp(34px,3.5vw,51px);line-height:.97;letter-spacing:-.075em;margin:19px 0 26px}
-.ip-footer-celebrate em{font-style:normal;color:#ff6b66}
+.ip-footer-celebrate em{font-style:normal;color:#e53945}
 .ip-footer-cta{display:inline-flex;gap:28px;align-items:center;justify-content:space-between;background:#142f37;color:#fff;padding:15px 20px;text-decoration:none;font-size:11px;font-weight:900;letter-spacing:.06em;border-radius:5px;transition:background .25s,transform .25s}
 .ip-footer-cta span{font-size:17px;transition:transform .25s}
-.ip-footer-cta:hover{background:#009eae;transform:translateY(-3px)}
+.ip-footer-cta:hover{background:#059cae;transform:translateY(-3px)}
 .ip-footer-cta:hover span{transform:translate(3px,-3px)}
 .ip-footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid rgba(20,47,55,.16);padding:22px 0 26px;font-size:12px;color:#587079}
 .ip-footer-bottom a{color:#587079;text-decoration:none;transition:color .2s}
 .ip-footer-bottom a strong{color:#142f37;font-weight:800}
-.ip-footer-bottom a:hover,.ip-footer-bottom a:hover strong{color:#009eae}
+.ip-footer-bottom a:hover,.ip-footer-bottom a:hover strong{color:#059cae}
 .ip-footer-bottom a span{margin-left:4px}
-@media(max-width:1050px){.ip-footer-top{grid-template-columns:1.3fr 1fr 1fr;row-gap:45px}.ip-footer-celebrate{grid-column:1/-1;border-left:0;border-top:2px solid #ff6b66;padding:30px 0 0}.ip-footer-celebrate p{font-size:43px}}
+@media(max-width:1050px){.ip-footer-top{grid-template-columns:1.3fr 1fr 1fr;row-gap:45px}.ip-footer-celebrate{grid-column:1/-1;border-left:0;border-top:2px solid #e53945;padding:30px 0 0}.ip-footer-celebrate p{font-size:43px}}
 @media(max-width:650px){.ip-footer-inner{width:min(100% - 40px,1330px)}.ip-footer-top{grid-template-columns:1fr 1fr;padding:55px 0 45px;gap:38px 24px}.ip-footer-brand{grid-column:1/-1}.ip-footer-logo img{width:54px;height:54px}.ip-footer-brand>p{margin:15px 0}.ip-footer-column h2{margin:0 0 6px}.ip-footer-celebrate{grid-column:1/-1;padding-top:30px}.ip-footer-celebrate p{font-size:clamp(36px,10vw,49px)}.ip-footer-bottom{flex-direction:column;align-items:flex-start;gap:10px;font-size:11px}}
+
+/* Social links — approved Insta Party brand colours */
+.ip-footer-socials{display:flex;align-items:center;gap:12px;margin-top:24px}
+.ip-footer-socials a{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:#059cae;color:#fff;text-decoration:none;opacity:1;cursor:pointer;transition:background .25s ease,transform .25s ease,box-shadow .25s ease}
+.ip-footer-socials a svg{display:block;width:23px;height:23px;color:#fff;flex-shrink:0}
+.ip-footer-socials a:hover,.ip-footer-socials a:focus-visible{background:#e53945;color:#fff;transform:translateY(-4px);box-shadow:0 7px 16px rgba(229,57,69,.22)}
+.ip-footer-socials a:focus-visible{outline:2px solid #142f37;outline-offset:3px}
+.ip-footer-bottom .ip-footer-privacy{margin-left:auto}
+@media(max-width:650px){.ip-footer-bottom .ip-footer-privacy{margin-left:0}}

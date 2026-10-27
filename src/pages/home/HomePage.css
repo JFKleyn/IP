@@ -2,7 +2,7 @@
 .ip-home {
   --ip-ink: #142f37;
   --ip-teal: #009eae;
-  --ip-coral: #ff6b66;
+  --ip-coral: #e53945;
   --ip-cream: #fff9f4;
   --ip-yellow: #ffd05d;
   color: var(--ip-ink);
@@ -28,7 +28,7 @@
   top: 0;
   bottom: 0;
   width: 42%;
-  background: var(--ip-teal);
+  background: var(--ip-coral);
   z-index: -1;
 }
 .ip-hero-content {
@@ -163,7 +163,7 @@
   height: 8px;
   background: var(--ip-coral);
   border-radius: 50%;
-  box-shadow: 0 0 0 5px #ff6b661e;
+  box-shadow: 0 0 0 5px #e539451e;
   animation: ip-pulse 2.4s infinite;
 }
 .ip-showcase {
@@ -271,7 +271,7 @@
 .ip-ribbon {
   flex: none;
   height: 66px;
-  background: var(--ip-coral);
+  background: #059cae;
   color: var(--ip-ink);
   overflow: hidden;
   display: flex;
@@ -292,6 +292,9 @@
     Arial,
     sans-serif;
   letter-spacing: 1px;
+  color: white;
+  display: flex;
+  align-items: center;
 }
 .ip-ribbon-set b {
   color: white;
@@ -370,7 +373,7 @@
 }
 @keyframes ip-pulse {
   50% {
-    box-shadow: 0 0 0 10px #ff6b6608;
+    box-shadow: 0 0 0 10px #e5394508;
   }
 }
 @keyframes ip-scroll {
@@ -1123,6 +1126,11 @@
   font-size: 11px;
   font-weight: 900;
   letter-spacing: 0.5px;
+  color: white;
+  transition: transform 0.25s;
+}
+.ip-final-button:hover {
+  transform: translateY(-4px);
 }
 .ip-final-button span {
   font-size: 19px;
@@ -1229,7 +1237,7 @@
   margin: 0;
 }
 .ip-memory-heading h2 span {
-  color: #ff6b66;
+  color: #e53945;
 }
 .ip-memory-heading > p:last-child {
   color: #c4d5d8;
@@ -1326,7 +1334,7 @@
   margin: 15px auto 0;
   padding: 16px 0 9px;
   color: #fff;
-  border-bottom: 2px solid #ff6b66;
+  border-bottom: 2px solid #e53945;
   text-decoration: none;
   font-size: 11px;
   font-weight: 900;
@@ -1537,7 +1545,7 @@
   box-shadow: 0 25px 40px #142f372b;
 }
 .ip-party-step--chat {
-  background: #ff6968;
+  background: #e53945;
   color: #142f37;
   transform: rotate(-2deg);
 }
