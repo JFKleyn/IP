@@ -44,7 +44,7 @@ export function Footer() {
           <div className="ip-footer-brand">
             <Link to="/" className="ip-footer-logo" aria-label="Insta Party - Home">
               <img src={logo} alt="" />
-              <span>Instaparty</span>
+              <span>InstaParty</span>
             </Link>
             <p>Big celebrations, little moments,<br />and everything worth remembering.</p>
             <span className="ip-footer-tagline">WE BRING THE PARTY TO YOU.</span>

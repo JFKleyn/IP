@@ -25,7 +25,7 @@ export function Header() {
       <div className="ip2-inner">
         <Link className="ip2-brand" to="/" aria-label="Insta Party home" onClick={closeMenu}>
           <img src={logo} alt="Insta Party logo" />
-          <span className="ip2-brand-word">Instaparty<small>WE BRING THE PARTY TO YOU</small></span>
+          <span className="ip2-brand-word">InstaParty<small>WE BRING THE PARTY TO YOU</small></span>
         </Link>
         <nav className={open ? "ip2-nav is-open" : "ip2-nav"} id="ip2-navigation" aria-label="Main navigation">
           {links.map(({ label, to }, index) => (

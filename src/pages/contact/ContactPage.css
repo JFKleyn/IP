@@ -489,3 +489,36 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* WHATSAPP BUTTON — matching the site's lift and colour-swap interactions */
+.ip-contact-info-block > a.ip-contact-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  padding: 12px 18px;
+  border-radius: 8px;
+  background: var(--ic-blue);
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background .25s, transform .25s, box-shadow .25s;
+}
+
+.ip-contact-info-block > a.ip-contact-whatsapp:hover,
+.ip-contact-info-block > a.ip-contact-whatsapp:focus-visible {
+  background: var(--ic-red);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 22px #0002;
+}
+
+.ip-contact-whatsapp svg {
+  flex-shrink: 0;
+  transition: transform .25s;
+}
+
+.ip-contact-whatsapp:hover svg,
+.ip-contact-whatsapp:focus-visible svg {
+  transform: rotate(-10deg) scale(1.1);
+}

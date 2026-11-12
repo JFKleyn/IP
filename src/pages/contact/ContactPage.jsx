@@ -1,7 +1,7 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import './ContactPage.css';
 
-const INTERESTS = ['Decor', 'Softplay', 'Catering / Slushie Machine', 'Bounce Castle', 'Lollipop Water Slide'];
+const INTERESTS = ['Decor', 'Softplay', 'Slushie Machine', 'Bounce Castle', 'Lollipop Water Slide'];
 const PACKAGES = ['Small (Standard Set)', 'Small (Train Set)', 'Small (Neutral Set)', 'Small (Pastel Set)', 'Medium', 'Large'];
 const initial = { firstName: '', lastName: '', email: '', telephone: '', area: '', bookingDate: '', time: '', interests: [], packages: [], message: '', website: '' };
 
@@ -77,6 +77,22 @@ export function ContactPage() {
             <p className="ip-contact-kicker">GET IN TOUCH</p>
             <h2>WE'D LOVE TO <span>HEAR FROM YOU.</span></h2>
             <p>Whether you're planning a birthday bash, a beautiful picnic or a celebration worth remembering, we're here to help bring it to life.</p>
+            <div className="ip-contact-info-block">
+              <span className="ip-contact-info-label">WHATSAPP US</span>
+              <a
+                href="https://wa.me/27732791265"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Chat with Insta Party on WhatsApp"
+                className="ip-contact-whatsapp"
+              >
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M20.5 11.8a8.5 8.5 0 0 1-12.6 7.5L3 20.7l1.4-4.8a8.5 8.5 0 1 1 16.1-4.1Z" />
+                  <path d="M8.6 8.1c-.4-.5-.8-.4-1.1.1-.5.8-.4 1.8.3 3 .8 1.5 2.4 3 4 3.9 1.5.8 2.7.9 3.5.2.4-.4.6-1.1.3-1.3l-2.1-1c-.3-.1-.5 0-.7.3l-.7.8c-1.3-.6-2.4-1.6-3-2.9l.7-.7c.2-.2.3-.5.2-.8Z" fill="currentColor" stroke="none" />
+                </svg>
+                CHAT ON WHATSAPP
+              </a>
+            </div>
             <div className="ip-contact-info-block">
               <span className="ip-contact-info-label">EMAIL US</span>
               <a href="mailto:info@instaparty.co.za">info@instaparty.co.za</a>

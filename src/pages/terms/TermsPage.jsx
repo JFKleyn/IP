@@ -67,7 +67,7 @@ export function TermsPage() {
           <div className="ip-terms-section-body" data-terms-reveal>
             <p className="ip-terms-kicker"><span /> SECURING YOUR DATE</p>
             <h2>PAYMENT <span>TERMS.</span></h2>
-            <p>A <strong>50% payment</strong> is required on booking. The remaining <strong>50% balance</strong> must reflect in our account at least <strong>24 hours before setup</strong>.</p>
+            <p>A <strong>50% payment</strong> is required on booking. The remaining <strong>50% balance</strong> must reflect in our account at least <strong>7 days before setup</strong>.</p>
             <p>Only electronic transfers are accepted. Our banking details are provided on your invoice, and proof of payment must be emailed to <a href="mailto:info@instaparty.co.za">info@instaparty.co.za</a>.</p>
             <div className="ip-terms-note"><span className="ip-terms-note-mark">!</span><p>Any damage to equipment or hired items will be charged in full to the customer.</p></div>
           </div>
@@ -81,7 +81,6 @@ export function TermsPage() {
             <p className="ip-terms-kicker"><span /> BEFORE THE CELEBRATION</p>
             <h2>CONSENT &amp; <span>INDEMNITY.</span></h2>
             <p>When securing your booking, please complete the <strong>booking form (Form A)</strong> and <strong>indemnity form (Form B)</strong>, and provide a copy of your ID document.</p>
-            <p>Please email these documents to <a href="mailto:info@instaparty.co.za">info@instaparty.co.za</a>. We will collect the originals during setup.</p>
             <div className="ip-terms-inline-photo"><img src={event3} alt="Insta Party event setup" loading="lazy" /></div>
           </div>
         </div>
