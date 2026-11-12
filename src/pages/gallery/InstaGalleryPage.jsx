@@ -59,8 +59,52 @@ export function InstaGalleryPage() {
   const [previewIndex, setPreviewIndex] = useState(null);
   const pageRef = useRef(null);
   const closeRef = useRef(null);
-  const isLiveFeed = false; // Switch to true when live API posts and permalinks are supplied.
-  const posts = MOCK_POSTS;
+  const [livePosts, setLivePosts] = useState([]);
+  const [isLiveFeed, setIsLiveFeed] = useState(false);
+  const [nextCursor, setNextCursor] = useState(null);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const posts = isLiveFeed ? livePosts : MOCK_POSTS;
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch('/api/instagram', { signal: controller.signal })
+      .then(response => { if (!response.ok) throw new Error('Feed unavailable'); return response.json(); })
+      .then(data => {
+        if (!Array.isArray(data.posts) || !data.posts.length) return;
+        setLivePosts(data.posts);
+        setNextCursor(data.nextCursor || null);
+        setIsLiveFeed(true);
+        setVisibleCount(BATCH_SIZE);
+      })
+      .catch(() => {}); // Retain preview photos until Meta access is configured.
+    return () => controller.abort();
+  }, []);
+
+  async function loadMore() {
+    if (!isLiveFeed) {
+      setVisibleCount(count => Math.min(count + BATCH_SIZE, posts.length));
+      return;
+    }
+    if (visibleCount < posts.length) {
+      setVisibleCount(count => Math.min(count + BATCH_SIZE, posts.length));
+      return;
+    }
+    if (!nextCursor || loadingMore) return;
+    setLoadingMore(true);
+    try {
+      const response = await fetch(`/api/instagram?after=${encodeURIComponent(nextCursor)}`);
+      if (!response.ok) throw new Error('Unable to load posts');
+      const data = await response.json();
+      if (!Array.isArray(data.posts)) throw new Error('Invalid feed');
+      setLivePosts(previous => [...previous, ...data.posts.filter(post => !previous.some(existing => existing.id === post.id))]);
+      setNextCursor(data.nextCursor || null);
+      setVisibleCount(count => count + BATCH_SIZE);
+    } catch {
+      // Keep existing posts visible and allow retry.
+    } finally {
+      setLoadingMore(false);
+    }
+  }
 
   useLayoutEffect(() => {
     const root = pageRef.current;
@@ -135,11 +179,11 @@ export function InstaGalleryPage() {
           </div>
           <div className="ig-feed-footer">
             <span className="ig-count">SHOWING {Math.min(visibleCount, posts.length)} OF {posts.length} MOMENTS</span>
-            {visibleCount < posts.length && <button className="ig-load" type="button" onClick={() => setVisibleCount(count => Math.min(count + BATCH_SIZE, posts.length))}>LOAD MORE MOMENTS <span>+</span></button>}
+            {(visibleCount < posts.length || (isLiveFeed && nextCursor)) && <button className="ig-load" type="button" onClick={loadMore} disabled={loadingMore}>{loadingMore ? "LOADING..." : "LOAD MORE MOMENTS"} <span>+</span></button>}
             <a className="ig-instagram-link" href={INSTAGRAM_PROFILE} target="_blank" rel="noopener noreferrer"><InstagramIcon /> EXPLORE OUR INSTAGRAM <ArrowIcon /></a>
           </div>
         </div>
-        <p className="ig-demo-note">Gallery preview — Instagram posts will appear here once the account is connected.</p>
+        {!isLiveFeed && <p className="ig-demo-note">Gallery preview — Instagram posts will appear here once the account is connected.</p>}
       </div>
     </section>
 
