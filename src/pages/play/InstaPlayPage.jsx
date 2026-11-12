@@ -17,10 +17,10 @@ const packages = [
   { title: "Small (Standard Set)", detail: "SMALL 5–8 CHILDREN", image: playStandard },
   { title: "Small (Train Set)", detail: "MEDIUM 5–8 CHILDREN", image: playTrain },
   { title: "Small (Neutral Set)", detail: "SMALL 5–8 CHILDREN", image: playNeutral },
+  { title: "Small (White Pastel)", detail: "3–5 CHILDREN", image: playPastel },
   { title: "Medium", detail: "MEDIUM 8–10 CHILDREN", image: playMedium },
   { title: "Large", detail: "LARGE 10+ CHILDREN", image: playLarge },
   { title: "Bounce Castle", detail: "Includes balloons (Themed)", image: playCastle },
-  { title: "Small (White Pastel)", detail: "3–5 CHILDREN", image: playPastel },
   { title: "Water Slide", detail: "8m Lollipop Waterslide", image: playWater },
 ];
 

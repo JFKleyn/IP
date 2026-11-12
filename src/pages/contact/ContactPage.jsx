@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import './ContactPage.css';
 
-const INTERESTS = ['Decor', 'Softplay', 'Slushie Machine', 'Bounce Castle', 'Lollipop Water Slide'];
+const INTERESTS = ['Decor', 'Softplay', 'Slushie Machine', 'Popcorn Machine', 'Bounce Castle', 'Lollipop Water Slide'];
 const PACKAGES = ['Small (Standard Set)', 'Small (Train Set)', 'Small (Neutral Set)', 'Small (Pastel Set)', 'Medium', 'Large'];
 const initial = { firstName: '', lastName: '', email: '', telephone: '', area: '', bookingDate: '', time: '', interests: [], packages: [], message: '', website: '' };
 
