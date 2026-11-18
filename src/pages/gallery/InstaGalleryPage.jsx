@@ -124,7 +124,7 @@ export function InstaGalleryPage() {
       root.querySelectorAll('[data-ig-reveal]:not(.ig-visible)').forEach(el => observer.observe(el));
     });
     return () => { window.cancelAnimationFrame(frame); observer.disconnect(); root.classList.remove('ig-motion-ready'); };
-  }, [visibleCount]);
+  }, [visibleCount, isLiveFeed, livePosts.length]);
 
   useEffect(() => {
     if (previewIndex === null) return;
