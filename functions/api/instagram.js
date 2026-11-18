@@ -1,117 +1,45 @@
-// Cloudflare Pages Function
-// Endpoint: /api/instagram
+// Cloudflare Pages Function — GET /api/instagram
+// Unified Login system-user tokens use the Facebook Graph API.
+const GRAPH_API = 'https://graph.facebook.com/v25.0';
+const HEADERS = { 'Cache-Control': 'public, max-age=300, s-maxage=300' };
 
-const INSTAGRAM_API = "https://graph.instagram.com";
+export async function onRequestGet({ request, env }) {
+  const token = env.INSTAGRAM_ACCESS_TOKEN;
+  const userId = env.INSTAGRAM_USER_ID;
+  if (!token || !userId) {
+    return Response.json({ configured: false, posts: [], nextCursor: null }, { headers: { 'Cache-Control': 'no-store' } });
+  }
 
-export async function onRequestGet({ env }) {
+  const cursor = new URL(request.url).searchParams.get('after');
+  if (cursor && (cursor.length > 2048 || !/^[\w=-]+$/.test(cursor))) {
+    return Response.json({ error: 'Invalid pagination cursor.' }, { status: 400 });
+  }
+
+  const fields = 'id,caption,media_type,media_url,thumbnail_url,permalink,timestamp,children{media_type,media_url,thumbnail_url}';
+  const url = new URL(`${GRAPH_API}/${encodeURIComponent(userId)}/media`);
+  url.searchParams.set('fields', fields);
+  url.searchParams.set('limit', '24');
+  if (cursor) url.searchParams.set('after', cursor);
+
   try {
-    const accessToken = env.INSTAGRAM_ACCESS_TOKEN;
-    const userId = env.INSTAGRAM_USER_ID;
-
-    // Instagram has not been connected yet.
-    if (!accessToken || !userId) {
-      return Response.json(
-        {
-          configured: false,
-          posts: [],
-          message: "Instagram integration is not configured yet.",
-        },
-        {
-          status: 200,
-          headers: {
-            "Cache-Control": "no-store",
-          },
-        }
-      );
+    const upstream = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+    if (!upstream.ok) {
+      // Never log tokens, upstream URLs or response bodies.
+      console.error('Instagram Graph API request failed:', upstream.status);
+      return Response.json({ configured: true, posts: [], error: 'Instagram feed unavailable.' }, { status: 502, headers: { 'Cache-Control': 'no-store' } });
     }
+    const data = await upstream.json();
+    const posts = (Array.isArray(data.data) ? data.data : []).map(post => {
+      const child = post.children?.data?.[0];
+      const image = post.media_type === 'VIDEO'
+        ? post.thumbnail_url || null
+        : post.media_url || child?.thumbnail_url || child?.media_url || null;
+      return { id: post.id, image, caption: post.caption || '', permalink: post.permalink || '', timestamp: post.timestamp || '' };
+    }).filter(post => post.id && post.image && post.permalink);
 
-    // Retrieve Instagram posts.
-    const fields = [
-      "id",
-      "caption",
-      "media_type",
-      "media_url",
-      "thumbnail_url",
-      "permalink",
-      "timestamp",
-      "children{media_type,media_url,thumbnail_url}",
-    ].join(",");
-
-    const url = new URL(
-      `${INSTAGRAM_API}/${encodeURIComponent(userId)}/media`
-    );
-
-    url.searchParams.set("fields", fields);
-    url.searchParams.set("limit", "100");
-    url.searchParams.set("access_token", accessToken);
-
-    const response = await fetch(url.toString());
-
-    if (!response.ok) {
-      console.error(
-        "Instagram API error:",
-        response.status,
-        await response.text()
-      );
-
-      return Response.json(
-        {
-          configured: true,
-          posts: [],
-          error: "Unable to retrieve Instagram posts.",
-        },
-        { status: 502 }
-      );
-    }
-
-    const data = await response.json();
-
-    // Convert Instagram API results into gallery posts.
-    const posts = (data.data || [])
-      .map((post) => {
-        const firstChild = post.children?.data?.[0];
-
-        const image =
-          post.media_type === "VIDEO"
-            ? post.thumbnail_url || post.media_url
-            : post.media_type === "CAROUSEL_ALBUM"
-              ? post.media_url ||
-                firstChild?.thumbnail_url ||
-                firstChild?.media_url
-              : post.media_url;
-
-        return {
-          id: post.id,
-          image,
-          caption: post.caption || "",
-          permalink: post.permalink,
-          timestamp: post.timestamp,
-        };
-      })
-      .filter((post) => post.image && post.permalink);
-
-    return Response.json(
-      {
-        configured: true,
-        posts,
-        nextCursor: data.paging?.cursors?.after || null,
-      },
-      {
-        headers: {
-          "Cache-Control": "public, max-age=300",
-        },
-      }
-    );
+    return Response.json({ configured: true, posts, nextCursor: data.paging?.next ? (data.paging?.cursors?.after || null) : null }, { headers: HEADERS });
   } catch (error) {
-    console.error("Instagram Function error:", error);
-
-    return Response.json(
-      {
-        configured: true,
-        posts: [],
-        error: "An unexpected error occurred.",
-      },
-      { status: 500 }
-    );
+    console.error('Instagram feed fetch failed:', error?.name || 'unknown');
+    return Response.json({ configured: true, posts: [], error: 'Instagram feed unavailable.' }, { status: 502, headers: { 'Cache-Control': 'no-store' } });
   }
 }
